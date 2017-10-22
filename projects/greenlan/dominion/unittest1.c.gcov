@@ -1,0 +1,123 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* -----------------------------------------------------------------------
+        -:    2: * Demonstration of how to write unit tests for dominion-base
+        -:    3: * Include the following lines in your makefile:
+        -:    4: *
+        -:    5: * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+        -:    6: *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+        -:    7: * -----------------------------------------------------------------------
+        -:    8:  This file is based off of the update coins file given in the course materials
+        -:    9: */
+        -:   10:
+        -:   11: /*Test the function isGameOver*/
+        -:   12: 
+        -:   13:#include "dominion.h"
+        -:   14:#include "dominion_helpers.h"
+        -:   15:#include <string.h>
+        -:   16:#include <stdio.h>
+        -:   17:#include <assert.h>
+        -:   18:#include "rngs.h"
+        -:   19:
+        -:   20:// set NOISY_TEST to 0 to remove printfs from output
+        -:   21:#define NOISY_TEST 1
+        -:   22:
+        -:   23:// set TEST_FUNCTION to whatever thing is being tested
+        -:   24:#define TEST_FUNCTION "isGameOver"
+        -:   25:
+        -:   26:// Self created assert function for testing functions
+        8:   27:void assertTrue(int b)
+        -:   28:{
+        8:   29:	if(b == 0)
+        -:   30:	{
+    #####:   31:		printf("Test Failed\n");
+        -:   32:	}
+        -:   33:	else
+        -:   34:	{
+        8:   35:		printf("Test Successful\n");
+        -:   36:	}
+        8:   37:}
+        -:   38:
+        1:   39:int main() {
+        -:   40:	//Initialize game parameters
+        -:   41:	int b;
+        1:   42:    int seed = 1000;
+        1:   43:    int numPlayer = 2;
+        1:   44:    int maxBonus = 10;
+        -:   45:    int p, r, handCount;
+        -:   46:    int bonus;
+        1:   47:    int k[10] = {adventurer, council_room, feast, gardens, mine
+        -:   48:               , remodel, smithy, village, baron, great_hall};
+        -:   49:    struct gameState G, testG;
+        1:   50:    int maxHandCount = 5;
+        -:   51:	
+        -:   52:	
+        -:   53:	// Begin the testing
+        1:   54:    printf ("TESTING %s\n", TEST_FUNCTION);
+        1:   55:    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+        1:   56:    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+        -:   57:	
+        -:   58:	// TEST 1
+        1:   59:	printf("Testing: Game is Not Over\n"); //Test being run
+        1:   60:	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+        -:   61:	/* Do the test material here where b is boolean to see if test succeeded*/
+        1:   62:	int result = isGameOver(&testG); // run the function
+        -:   63:	
+        1:   64:	printf("Province count unchanged?\n");
+        1:   65:	assertTrue(testG.supplyCount[province] == G.supplyCount[province]); // test the province count
+        -:   66:	
+        1:   67:	printf("Province count > 0?\n");
+        1:   68:	assertTrue(testG.supplyCount[province] > 0); // Test greater than 0
+        -:   69:	
+        1:   70:	printf("No more than 2 piles > 0?\n");
+        1:   71:	int j = 0;
+        -:   72:	int i;
+       26:   73:	for (i = 0; i < 25; i++)
+        -:   74:	  {
+       25:   75:		if (testG.supplyCount[i] == 0)
+        -:   76:		  {
+    #####:   77:			j++;
+        -:   78:		  }
+        -:   79:	  }
+        1:   80:	assertTrue( j < 3);
+        -:   81:	
+        1:   82:	printf("Returned 0 as result?\n");
+        1:   83:    assertTrue(result == 0);
+        -:   84:
+        -:   85:	// TEST 2
+        1:   86:	printf("Testing: Game is Over\n"); //Test being run
+        1:   87:	G.supplyCount[province] = 0;
+        1:   88:	G.supplyCount[0] = 0;
+        1:   89:	G.supplyCount[1] = 0;
+        1:   90:	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+        -:   91:	/* Do the test material here where b is boolean to see if test succeeded*/
+        1:   92:	result = isGameOver(&testG); // run the function
+        -:   93:	
+        1:   94:	printf("Province count unchanged?\n");
+        1:   95:	assertTrue(testG.supplyCount[province] == G.supplyCount[province]); // test the province count
+        -:   96:	
+        1:   97:	printf("Province count == 0?\n");
+        1:   98:	assertTrue(testG.supplyCount[province] == 0); // Test greater than 0
+        -:   99:	
+        1:  100:	printf("At least 3 piles > 0?\n");
+        1:  101:	j = 0;
+       26:  102:	for (i = 0; i < 25; i++)
+        -:  103:	  {
+       25:  104:		if (testG.supplyCount[i] == 0)
+        -:  105:		  {
+        3:  106:			j++;
+        -:  107:		  }
+        -:  108:	  }
+        1:  109:	assertTrue( j >= 3);
+        -:  110:	
+        1:  111:	printf("Returned 1 as result?\n");
+        1:  112:    assertTrue(result == 1);
+        -:  113:	
+        -:  114:	//End the testing
+        1:  115:    printf("End Testing for %s\n",TEST_FUNCTION);
+        -:  116:
+        1:  117:    return 0;
+        -:  118:}

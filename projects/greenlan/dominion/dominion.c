@@ -659,7 +659,7 @@ void adventurerEffect(struct gameState *state, int currentPlayer, int drawntreas
 	  z++;
 	}
       }
-      while(z-1<=0)//changed >= to <= which should cause a seg fault
+      while(z-1>=0)//changed >= to <= which should cause a seg fault
 	{
 	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
 	z=z-1;

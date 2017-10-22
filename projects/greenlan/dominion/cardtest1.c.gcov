@@ -1,0 +1,99 @@
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* -----------------------------------------------------------------------
+        -:    2: * Demonstration of how to write unit tests for dominion-base
+        -:    3: * Include the following lines in your makefile:
+        -:    4: *
+        -:    5: * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+        -:    6: *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+        -:    7: * -----------------------------------------------------------------------
+        -:    8:  This file is based off of the update coins file given in the course materials
+        -:    9: */
+        -:   10:
+        -:   11:  /*Test the function ______________*/
+        -:   12: 
+        -:   13:#include "dominion.h"
+        -:   14:#include "dominion_helpers.h"
+        -:   15:#include <string.h>
+        -:   16:#include <stdio.h>
+        -:   17:#include <assert.h>
+        -:   18:#include "rngs.h"
+        -:   19:
+        -:   20:// set NOISY_TEST to 0 to remove printfs from output
+        -:   21:#define NOISY_TEST 1
+        -:   22:
+        -:   23:// set TEST_FUNCTION to whatever thing is being tested
+        -:   24:#define TEST_FUNCTION "Smithy"
+        -:   25:
+        -:   26:// Self created assert function for testing functions
+        4:   27:void assertTrue(int b)
+        -:   28:{
+        4:   29:	if(b == 0)
+        -:   30:	{
+        1:   31:		printf("Test Failed\n");
+        -:   32:	}
+        -:   33:	else
+        -:   34:	{
+        3:   35:		printf("Test Successful\n");
+        -:   36:	}
+        4:   37:}
+        -:   38:
+        1:   39:int main() {
+        -:   40:	//Initialize game parameters
+        -:   41:	int b;
+        1:   42:    int seed = 1000;
+        1:   43:    int numPlayer = 2;
+        1:   44:    int maxBonus = 10;
+        -:   45:    int p, r, handCount;
+        1:   46:	int handpos = 0;
+        1:   47:	int choice1 = 0;
+        1:   48:	int choice2 = 0;
+        1:   49:	int choice3 = 0;
+        1:   50:	int bonus = 0;
+        1:   51:	int player = 0;
+        1:   52:    int k[10] = {adventurer, council_room, feast, gardens, mine
+        -:   53:               , remodel, smithy, village, baron, great_hall};
+        -:   54:    struct gameState G, testG;
+        1:   55:    int maxHandCount = 5;
+        -:   56:	
+        -:   57:	
+        -:   58:	// Begin the testing
+        1:   59:    printf ("TESTING %s\n", TEST_FUNCTION);
+        1:   60:    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+        1:   61:    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+        1:   62:	G.whoseTurn = 0;
+        -:   63:	
+        -:   64:	// TEST 1
+        1:   65:	printf("Smithy Card played\n"); //Test being run
+        1:   66:	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+        1:   67:	cardEffect(smithy,choice1,choice2,choice3,&testG,handpos,&bonus);
+        -:   68:	
+        1:   69:	printf("Drew cards from correct pile?\n");
+        1:   70:	assertTrue(testG.deckCount[player] < (G.deckCount[player]-3));
+        -:   71:	
+        1:   72:	printf("Drew 3 cards?\n");
+        1:   73:	assertTrue(testG.handCount[player] == (G.handCount[player]-2));
+        -:   74:	
+        1:   75:	printf("Supply unchanged?\n");
+        1:   76:	int j = 0;
+        1:   77:	int i =0;
+       26:   78:	for (i = 0; i < 25; i++)
+        -:   79:	  {
+       25:   80:		if (testG.supplyCount[i] != G.supplyCount[i])
+        -:   81:		  {
+    #####:   82:			j++;
+        -:   83:		  }
+        -:   84:	  }
+        1:   85:	assertTrue( j == 0);
+        -:   86:
+        1:   87:	printf("Other player hand unchanged?\n");
+        1:   88:	assertTrue(testG.handCount[1] == G.handCount[1]);
+        -:   89:	
+        -:   90:	//End the testing
+        1:   91:    printf("End Testing for %s\n",TEST_FUNCTION);
+        -:   92:
+        1:   93:    return 0;
+        -:   94:}

@@ -1,0 +1,123 @@
+TESTING isGameOver
+Testing: Game is Not Over
+Province count unchanged?
+Test Successful
+Province count > 0?
+Test Successful
+No more than 2 piles > 0?
+Test Successful
+Returned 0 as result?
+Test Successful
+Testing: Game is Over
+Province count unchanged?
+Test Successful
+Province count == 0?
+Test Successful
+At least 3 piles > 0?
+Test Successful
+Returned 1 as result?
+Test Successful
+End Testing for isGameOver
+TESTING updateCoins
+Test no bonus coins and one copper
+Test that coins is 1
+Test Successful
+Test no bonus coins and one silver
+Test that coins is 2
+Test Successful
+Test no bonus coins and one gold
+Test that coins is 3
+Test Successful
+Test 2 bonus coins and one silver
+Test that coins is 4
+Test Successful
+End Testing for updateCoins
+TESTING whoseTurn
+Test player 0 turn
+Test Successful
+Test player 1 turn
+Test Successful
+End Testing for whoseTurn
+TESTING fullDeckCount
+Given 6 cards in between hand, deck and discard.
+Check to see that the result is 5 village cards
+Test Successful
+End Testing for fullDeckCount
+TESTING Smithy
+Smithy Card played
+Drew cards from correct pile?
+Test Successful
+Drew 3 cards?
+Test Failed
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Smithy
+TESTING Adventurer
+Adventurer card played
+Took 2 cards?
+Test Successful
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Adventurer
+TESTING Village
+Village card played
+Drew cards from correct pile?
+Test Successful
+Drew 1 card?
+Test Successful
+Actions correct?
+Test Failed
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Village
+TESTING Council Room
+Council Room card played
+Drew cards from correct pile?
+Test Failed
+Drew 4 cards?
+Test Successful
+Buys correct?
+Test Successful
+Supply unchanged?
+Test Successful
+Other player drew a card?
+Test Failed
+End Testing for Council Room
+File 'unittest1.c'
+Lines executed:95.92% of 49
+Creating 'unittest1.c.gcov'
+
+File 'unittest2.c'
+Lines executed:98.25% of 57
+Creating 'unittest2.c.gcov'
+
+File 'unittest3.c'
+Lines executed:96.15% of 26
+Creating 'unittest3.c.gcov'
+
+File 'unittest4.c'
+Lines executed:96.77% of 31
+Creating 'unittest4.c.gcov'
+
+File 'cardtest1.c'
+Lines executed:97.44% of 39
+Creating 'cardtest1.c.gcov'
+
+File 'cardtest2.c'
+Lines executed:95.74% of 47
+Creating 'cardtest2.c.gcov'
+
+File 'cardtest3.c'
+Lines executed:97.56% of 41
+Creating 'cardtest3.c.gcov'
+
+File 'cardtest4.c'
+Lines executed:97.56% of 41
+Creating 'cardtest4.c.gcov'
+
