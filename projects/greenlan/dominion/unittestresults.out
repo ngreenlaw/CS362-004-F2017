@@ -89,6 +89,10 @@ Test Successful
 Other player drew a card?
 Test Failed
 End Testing for Council Room
+File 'dominion.c'
+Lines executed:29.31% of 563
+Creating 'dominion.c.gcov'
+
 File 'unittest1.c'
 Lines executed:95.92% of 49
 Creating 'unittest1.c.gcov'
@@ -121,3 +125,4 @@ File 'cardtest4.c'
 Lines executed:97.56% of 41
 Creating 'cardtest4.c.gcov'
 
+Lines executed:54.36% of 894

@@ -49,14 +49,7 @@ unittestresults.out:
 	./cardtest2 >> unittestresults.out
 	./cardtest3 >> unittestresults.out
 	./cardtest4 >> unittestresults.out
-	gcov unittest1 >> unittestresults.out
-	gcov unittest2 >> unittestresults.out
-	gcov unittest3 >> unittestresults.out
-	gcov unittest4 >> unittestresults.out
-	gcov cardtest1 >> unittestresults.out
-	gcov cardtest2 >> unittestresults.out
-	gcov cardtest3 >> unittestresults.out
-	gcov cardtest4 >> unittestresults.out
+	gcov dominion.c unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 >> unittestresults.out
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 

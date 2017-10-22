@@ -1,8 +1,5 @@
         -:    0:Source:unittest4.c
-        -:    0:Graph:unittest4.gcno
-        -:    0:Data:unittest4.gcda
-        -:    0:Runs:1
-        -:    0:Programs:1
+        -:    0:Programs:32
         -:    1:/* -----------------------------------------------------------------------
         -:    2: * Demonstration of how to write unit tests for dominion-base
         -:    3: * Include the following lines in your makefile:
