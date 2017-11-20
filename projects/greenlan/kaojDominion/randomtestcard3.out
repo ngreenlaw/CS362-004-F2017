@@ -1,0 +1,225 @@
+Random testing for the smithy card.
+
+Handcount: 424, expected: 423     FAILED
+Game state --- numPlayers: 2, handCount: 421, deckCount: 394, discardCount: 270, playedCardCount: 0
+
+Handcount: 14, expected: 13     FAILED
+Game state --- numPlayers: 4, handCount: 11, deckCount: 335, discardCount: 429, playedCardCount: 0
+
+Handcount: 165, expected: 164     FAILED
+Game state --- numPlayers: 4, handCount: 162, deckCount: 164, discardCount: 221, playedCardCount: 0
+
+Handcount: 23, expected: 22     FAILED
+Game state --- numPlayers: 3, handCount: 20, deckCount: 131, discardCount: 313, playedCardCount: 0
+
+Handcount: 478, expected: 477     FAILED
+Game state --- numPlayers: 4, handCount: 475, deckCount: 298, discardCount: 183, playedCardCount: 0
+
+Handcount: 477, expected: 476     FAILED
+Game state --- numPlayers: 4, handCount: 474, deckCount: 448, discardCount: 389, playedCardCount: 0
+
+Handcount: 205, expected: 204     FAILED
+Game state --- numPlayers: 2, handCount: 202, deckCount: 448, discardCount: 17, playedCardCount: 0
+
+Handcount: 308, expected: 307     FAILED
+Game state --- numPlayers: 3, handCount: 305, deckCount: 274, discardCount: 157, playedCardCount: 0
+
+Handcount: 100, expected: 99     FAILED
+Game state --- numPlayers: 2, handCount: 97, deckCount: 129, discardCount: 470, playedCardCount: 0
+
+Handcount: 12, expected: 11     FAILED
+Game state --- numPlayers: 2, handCount: 9, deckCount: 301, discardCount: 236, playedCardCount: 0
+
+Handcount: 231, expected: 230     FAILED
+Game state --- numPlayers: 4, handCount: 228, deckCount: 483, discardCount: 386, playedCardCount: 0
+
+Handcount: 412, expected: 411     FAILED
+Game state --- numPlayers: 3, handCount: 409, deckCount: 280, discardCount: 310, playedCardCount: 0
+
+Handcount: 462, expected: 461     FAILED
+Game state --- numPlayers: 3, handCount: 459, deckCount: 199, discardCount: 176, playedCardCount: 0
+
+Handcount: 175, expected: 174     FAILED
+Game state --- numPlayers: 3, handCount: 172, deckCount: 228, discardCount: 469, playedCardCount: 0
+
+Handcount: 34, expected: 33     FAILED
+Game state --- numPlayers: 4, handCount: 31, deckCount: 102, discardCount: 474, playedCardCount: 0
+
+Handcount: 434, expected: 433     FAILED
+Game state --- numPlayers: 4, handCount: 431, deckCount: 429, discardCount: 175, playedCardCount: 0
+
+Handcount: 43, expected: 42     FAILED
+Game state --- numPlayers: 4, handCount: 40, deckCount: 69, discardCount: 466, playedCardCount: 0
+
+Handcount: 193, expected: 192     FAILED
+Game state --- numPlayers: 3, handCount: 190, deckCount: 336, discardCount: 116, playedCardCount: 0
+
+Handcount: 283, expected: 282     FAILED
+Game state --- numPlayers: 3, handCount: 280, deckCount: 290, discardCount: 337, playedCardCount: 0
+
+Handcount: 103, expected: 102     FAILED
+Game state --- numPlayers: 2, handCount: 100, deckCount: 463, discardCount: 62, playedCardCount: 0
+
+Testing finished.
+Function 'updateCoins'
+Lines executed:100.00% of 11
+Branches executed:100.00% of 8
+Taken at least once:100.00% of 8
+No calls
+
+Function 'gainCard'
+Lines executed:0.00% of 13
+Branches executed:0.00% of 6
+Taken at least once:0.00% of 6
+Calls executed:0.00% of 1
+
+Function 'discardCard'
+Lines executed:92.31% of 13
+Branches executed:100.00% of 6
+Taken at least once:66.67% of 6
+No calls
+
+Function 'cardEffect'
+Lines executed:5.85% of 205
+Branches executed:12.99% of 177
+Taken at least once:2.82% of 177
+Calls executed:7.14% of 56
+
+Function 'playSmithy'
+Lines executed:100.00% of 4
+Branches executed:100.00% of 2
+Taken at least once:100.00% of 2
+Calls executed:100.00% of 1
+
+Function 'playSalvager'
+Lines executed:0.00% of 6
+Branches executed:0.00% of 2
+Taken at least once:0.00% of 2
+Calls executed:0.00% of 3
+
+Function 'playGreatHall'
+Lines executed:0.00% of 5
+No branches
+Calls executed:0.00% of 2
+
+Function 'playCouncilRoom'
+Lines executed:100.00% of 9
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+Calls executed:100.00% of 3
+
+Function 'playAdventurer'
+Lines executed:100.00% of 15
+Branches executed:100.00% of 10
+Taken at least once:100.00% of 10
+Calls executed:100.00% of 1
+
+Function 'getCost'
+Lines executed:0.00% of 30
+Branches executed:0.00% of 28
+Taken at least once:0.00% of 28
+No calls
+
+Function 'drawCard'
+Lines executed:100.00% of 22
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+Calls executed:100.00% of 1
+
+Function 'getWinners'
+Lines executed:0.00% of 24
+Branches executed:0.00% of 22
+Taken at least once:0.00% of 22
+Calls executed:0.00% of 2
+
+Function 'scoreFor'
+Lines executed:0.00% of 24
+Branches executed:0.00% of 42
+Taken at least once:0.00% of 42
+Calls executed:0.00% of 3
+
+Function 'isGameOver'
+Lines executed:0.00% of 10
+Branches executed:0.00% of 8
+Taken at least once:0.00% of 8
+No calls
+
+Function 'endTurn'
+Lines executed:0.00% of 20
+Branches executed:0.00% of 6
+Taken at least once:0.00% of 6
+Calls executed:0.00% of 3
+
+Function 'whoseTurn'
+Lines executed:100.00% of 2
+No branches
+No calls
+
+Function 'fullDeckCount'
+Lines executed:0.00% of 9
+Branches executed:0.00% of 12
+Taken at least once:0.00% of 12
+No calls
+
+Function 'supplyCount'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'handCard'
+Lines executed:100.00% of 3
+No branches
+Calls executed:100.00% of 1
+
+Function 'numHandCards'
+Lines executed:0.00% of 2
+No branches
+Calls executed:0.00% of 1
+
+Function 'buyCard'
+Lines executed:0.00% of 13
+Branches executed:0.00% of 6
+Taken at least once:0.00% of 6
+Calls executed:0.00% of 4
+
+Function 'playCard'
+Lines executed:71.43% of 14
+Branches executed:100.00% of 10
+Taken at least once:50.00% of 10
+Calls executed:100.00% of 3
+
+Function 'shuffle'
+Lines executed:100.00% of 16
+Branches executed:100.00% of 8
+Taken at least once:100.00% of 8
+Calls executed:100.00% of 2
+
+Function 'initializeGame'
+Lines executed:95.16% of 62
+Branches executed:100.00% of 46
+Taken at least once:91.30% of 46
+Calls executed:100.00% of 5
+
+Function 'kingdomCards'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'newGame'
+Lines executed:0.00% of 3
+No branches
+No calls
+
+Function 'compare'
+Lines executed:100.00% of 6
+Branches executed:100.00% of 4
+Taken at least once:100.00% of 4
+No calls
+
+File 'dominion.c'
+Lines executed:32.55% of 556
+Branches executed:31.08% of 415
+Taken at least once:24.10% of 415
+Calls executed:22.83% of 92
+Creating 'dominion.c.gcov'
+
