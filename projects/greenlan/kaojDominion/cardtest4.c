@@ -1,127 +1,98 @@
-// Tests the village card in dominion.c
-//
-//  Effect of playing village:
-//  	-player gets one additional card from deck
-//  	-player gets +2 actions
-//
+/* -----------------------------------------------------------------------
+ * Demonstration of how to write unit tests for dominion-base
+ * Include the following lines in your makefile:
+ *
+ * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+ *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+ * -----------------------------------------------------------------------
+  This file is based off of the update coins file given in the course materials
+ */
 
+  /*Test the function ______________*/
+ 
 #include "dominion.h"
 #include "dominion_helpers.h"
-#include "rngs.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <assert.h>
+#include "rngs.h"
 
-#define MAXCARD treasure_map
-#define PASS_STR "     ----- PASS ----- "
-#define FAIL_STR "     ----- FAIL ----- "
+// set NOISY_TEST to 0 to remove printfs from output
+#define NOISY_TEST 1
 
-typedef struct gameState gState;
+// set TEST_FUNCTION to whatever thing is being tested
+#define TEST_FUNCTION "Council Room"
 
-void printPassFail(int param1, int param2) {
-	if (param1 == param2) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
+// Self created assert function for testing functions
+void assertTrue(int b)
+{
+	if(b == 0)
+	{
+		printf("Test Failed\n");
+	}
+	else
+	{
+		printf("Test Successful\n");
 	}
 }
 
-int main(int argc, char *argv[]) {
-	int numPlayers = 2;
-	int seedNum = 3000;
-	int i, result;
-	gState G, postG;
-
-	int k[10] = {adventurer, council_room, gardens, mine, smithy, village, baron,
-	great_hall, minion, salvager};
-	printf("Initializing game.\n");
-	initializeGame(numPlayers, k, seedNum, &G);
-	int currPlayer = G.whoseTurn;
-
-	// Add village card to player's hand
-	G.hand[currPlayer][G.handCount[currPlayer]] = village;
-	G.handCount[currPlayer]++;
-
-	// Copy state
-	memcpy(&postG, &G, sizeof(gState));
-	result = playCard(G.handCount[currPlayer]-1, 0, 0, 0, &postG);
-
-	printf("TEST of village card --- numPlayers: 2, status: new game\n");
-
-	// Playing village should return 0
-	printf("Return value of playCard with village: %d, expected: %d", result, 0);
-	printPassFail(result, 0);
-
-	// Player's hand count should have remained the same: +1 card, then remove village card from hand
-	int initHandCount = G.handCount[currPlayer];
-	int postHandCount = postG.handCount[currPlayer];
-	printf("Hand count: %d, expected: %d", initHandCount, postHandCount);
-	printPassFail(initHandCount, postHandCount);
-
-	// Added card should be the previous top card of deck
-	int addedCard = postG.hand[currPlayer][postG.handCount[currPlayer]-1];
-	int prevDeckCard = G.deck[currPlayer][G.deckCount[currPlayer]-1];
-	printf("Added card: %d, expected: %d", addedCard, prevDeckCard);
-	printPassFail(addedCard, prevDeckCard);
+int main() {
+	//Initialize game parameters
+	int b;
+    int i;
+    int seed = 1000;
+    int numPlayer = 2;
+    int maxBonus = 10;
+    int p, r, handCount;
+	int handpos = 0;
+	int choice1 = 0;
+	int choice2 = 0;
+	int choice3 = 0;
+	int bonus = 0;
+	int player = 0;
+    int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+    struct gameState G, testG;
+    int maxHandCount = 5;
 	
-	// Deck count should have decreased by one
-	printf("Deck count: %d, expected: %d", postG.deckCount[currPlayer], G.deckCount[currPlayer]-1);
-	printPassFail(postG.deckCount[currPlayer], G.deckCount[currPlayer]-1);
 	
-	// Number of actions should have increased by one: consumed one by playing village, then +2
-	printf("Number of actions: %d, expected: %d", postG.numActions, G.numActions+1);
-	printPassFail(postG.numActions, G.numActions+1);
-	
-	// Top of playedCards should be village
-	printf("Top of played cards: %d, expected: %d", postG.playedCards[postG.playedCardCount-1],
-		village);
-	printPassFail(postG.playedCards[postG.playedCardCount-1], village);
-	
-	// Played card count should have increased by one
-	printf("Played card count: %d, expected: %d", postG.playedCardCount, G.playedCardCount + 1);
-	printPassFail(postG.playedCardCount, G.playedCardCount + 1);
+	// Begin the testing
+    printf ("TESTING %s\n", TEST_FUNCTION);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+	G.whoseTurn = 0;
+	G.deckCount[0] = 10;
 
-	// Check for changes in gameState
-	printf("Number of players: %d, expected: %d", postG.numPlayers, G.numPlayers);
-	printPassFail(postG.numPlayers, G.numPlayers);
-	printf("Whose turn: %d, expected: %d", postG.whoseTurn, G.whoseTurn);
-	printPassFail(postG.whoseTurn, G.whoseTurn);
-	printf("Phase: %d, expected: %d", postG.phase, G.phase);
-	printPassFail(postG.phase, G.phase);
-	printf("Number of buys: %d, expected: %d", postG.numBuys, G.numBuys);
-	printPassFail(postG.numBuys, G.numBuys);
+	// TEST 1
+	printf("Council Room card played\n"); //Test being run
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	cardEffect(council_room,choice1,choice2,choice3,&testG,handpos,&bonus);
 	
-	// Check for changes in supply count
-	i = 0;
-	int supplyMatch = 1;
-	while (supplyMatch && i < MAXCARD+1) {
-		if (postG.supplyCount[i] != G.supplyCount[i]) {
-			supplyMatch = 0;
-		}
-		i++;
-	}
-	printf("Supply count remains the same");
-	printPassFail(supplyMatch, 1);
+	printf("Drew cards from correct pile?\n");
+	assertTrue(testG.deckCount[player] == (G.deckCount[player]-4));
 	
-	// Check card counts of other player
-	for (i = 0; i < numPlayers; i++) {
-		if (i != currPlayer) {
-			printf("Player %d hand count: %d, expected: %d", i, postG.handCount[i], G.handCount[i]);
-			printPassFail(postG.handCount[i], G.handCount[i]);
-			printf("Player %d deck count: %d, expected: %d", i, postG.deckCount[i], G.deckCount[i]);
-			printPassFail(postG.deckCount[i], G.deckCount[i]);
-			printf("Player %d discard count: %d, expected: %d", i, postG.discardCount[i], G.discardCount[i]);
-			printPassFail(postG.discardCount[i], G.discardCount[i]);
-		}
-	}
+	printf("Drew 4 cards?\n");
+	assertTrue(testG.handCount[player] == (G.handCount[player]+4));
+	
+	printf("Buys correct?\n");
+	assertTrue(testG.numBuys == (G.numBuys+1));
+	
+	printf("Supply unchanged?\n");
+	int j = 0;
+	for (i = 0; i < 25; i++)
+	  {
+		if (testG.supplyCount[i] != G.supplyCount[i])
+		  {
+			j++;
+		  }
+	  }
+	assertTrue( j == 0);
 
-	return 0;
+	printf("Other player drew a card?\n");
+	assertTrue(testG.handCount[1] == (G.handCount[1]+1));
+
+	//End the testing
+    printf("End Testing for %s\n",TEST_FUNCTION);
+
+    return 0;
 }
-
-
-
-
-
-
-
-

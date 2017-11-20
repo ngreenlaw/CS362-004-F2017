@@ -1,135 +1,77 @@
-// Unit test for updateCoins() function in dominion.c
-//
-// 		Usage:
-// 			int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
-//
-// 		Description:
-// 			-adds cards to player based on toFlag
-// 				-toFlag = 0: add to player's discard
-// 				-toFlag = 1: add to player's deck
-// 				-toFlag = 2: add to player's hand
+/* -----------------------------------------------------------------------
+ * Demonstration of how to write unit tests for dominion-base
+ * Include the following lines in your makefile:
+ *
+ * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+ *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+ * -----------------------------------------------------------------------
+  This file is based off of the update coins file given in the course materials
+ */
 
+  /*Test the function whoseTurn*/
+ 
 #include "dominion.h"
 #include "dominion_helpers.h"
-#include "rngs.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <assert.h>
+#include "rngs.h"
 
-#define PASS_STR "     ----- PASS ----- "
-#define FAIL_STR "     ----- FAIL ----- "
+// set NOISY_TEST to 0 to remove printfs from output
+#define NOISY_TEST 1
 
-typedef struct gameState gState;
+// set TEST_FUNCTION to whatever thing is being tested
+#define TEST_FUNCTION "whoseTurn"
 
-
-void testGainCard(gState *initState, gState *postState, int supplyPos, int currPlayer, int toFlag) {
-	int initCount, postCount, expectedCount;
-	char to[32];
-	memset(to, 0, 32);
-	int cardToCompare, prevCard, expectedCard;
-	int expectedSupply;
-	
-	switch(toFlag) {
-		case 0 : // Discard
-			initCount = initState->discardCount[currPlayer];
-			postCount = postState->discardCount[currPlayer];
-			cardToCompare = postState->discard[currPlayer][postCount-1];
-			prevCard = initState->discard[currPlayer][initCount-1];
-			strcpy(to, "Discard");
-			break;
-		case 1 : // Deck
-			initCount = initState->deckCount[currPlayer];
-			postCount = postState->deckCount[currPlayer];
-			cardToCompare = postState->deck[currPlayer][postCount-1];
-			prevCard = initState->deck[currPlayer][initCount-1];
-			strcpy(to, "Deck");
-			break;
-		case 2 : // Hand
-			initCount = initState->handCount[currPlayer];
-			postCount = postState->handCount[currPlayer];
-			cardToCompare = postState->hand[currPlayer][postCount-1];
-			prevCard = initState->hand[currPlayer][initCount-1];
-			strcpy(to, "Hand");
-			break;
+// Self created assert function for testing functions
+void assertTrue(int b)
+{
+	if(b == 0)
+	{
+		printf("Test Failed\n");
 	}
-
-	// Check if supply count of card is empty
-	if (initState->supplyCount[supplyPos] == 0) {
-		expectedCount = initCount;
-		expectedCard = prevCard;
-		expectedSupply = 0;
-	} else {
-		expectedCount = initCount + 1;
-		expectedCard = supplyPos;
-		expectedSupply = initState->supplyCount[supplyPos]-1;
+	else
+	{
+		printf("Test Successful\n");
 	}
-
-
-	// Compare counts
-	printf("%s count: %d, expected: %d", to, postCount, expectedCount);
-	if (postCount == expectedCount) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-
-	// Compare top of destination
-	printf("Top of %s: %d, expected: %d", to, cardToCompare, expectedCard);
-	if (cardToCompare == expectedCard) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-
-	// Compare supply count
-	printf("Supply count of card: %d, expected: %d", postState->supplyCount[supplyPos],
-		expectedSupply);
-	if (postState->supplyCount[supplyPos] == expectedSupply) { 
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-
-	printf("\n");
 }
 
+int main() {
+	//Initialize game parameters
+	int b;
+    int seed = 1000;
+    int numPlayer = 2;
+    int maxBonus = 10;
+    int p, r, handCount;
+    int bonus;
+    int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+    struct gameState G, testG;
+    int maxHandCount = 5;
+	
+	// Begin the testing
+    printf ("TESTING %s\n", TEST_FUNCTION);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+	G.whoseTurn = 0;
+	
+	int turn;
+	
+	// TEST 1
+	printf("Test player 0 turn\n"); //Test being run
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	turn = whoseTurn(&testG);
+    assertTrue(turn == 0); //Test result
+	
+	// TEST 2
+	G.whoseTurn = 1;
+	printf("Test player 1 turn\n"); //Test being run
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	turn = whoseTurn(&testG);
+    assertTrue(turn == 1); //Test result
 
+	//End the testing
+    printf("End Testing for %s\n",TEST_FUNCTION);
 
-int main(int argc, char *argv[]) {
-	int numPlayers = 2;
-	int seedNum = 1000;
-	int supplyPos = 0;
-	gState G, postG;
-
-	int k[10] = {adventurer, council_room, gardens, mine, smithy, village, baron,
-	great_hall, minion, salvager};
-	printf("Initializing game.\n");
-	initializeGame(numPlayers, k, seedNum, &G);
-	memcpy(&postG, &G, sizeof(gState));		// Copy game state
-	int currPlayer = G.whoseTurn;
-	printf("TEST 1 of gainCard() --- supplyPos: 0, toFlag: 0\n");
-	gainCard(supplyPos, &postG, 0, currPlayer);
-	testGainCard(&G, &postG, supplyPos, currPlayer, 0);	
-
-	supplyPos = 1;
-	memcpy(&G, &postG, sizeof(gState));		// Update G
-	printf("TEST 2 of gainCard() --- supplyPos: 1, toFlag: 1\n");
-	gainCard(supplyPos, &postG, 1, currPlayer);
-	testGainCard(&G, &postG, supplyPos, currPlayer, 1);
-
-	supplyPos = 2;
-	memcpy(&G, &postG, sizeof(gState));		// Update G
-	printf("TEST 3 of gainCard() --- supplyPos: 2, toFlag: 2\n");
-	gainCard(supplyPos, &postG, 2, currPlayer);
-	testGainCard(&G, &postG, supplyPos, currPlayer, 2);
-
-	// Empty out silver supply
-	postG.supplyCount[silver] = 0;
-	memcpy(&G, &postG, sizeof(gState));
-	supplyPos = 5;
-	printf("TEST 4 of gainCard() --- supplyPos: 5, toFlag: 0, supply quantity: 0\n");
-	gainCard(supplyPos, &postG, 0, currPlayer);
-	testGainCard(&G, &postG, supplyPos, currPlayer, 0);
-
-	return 0;
+    return 0;
 }

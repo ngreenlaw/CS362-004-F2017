@@ -678,7 +678,7 @@ int playCouncilRoom(struct gameState *state, int currentPlayer, int handPos) {
     state->numBuys++;
 			
     //Each other player draws a card
-    for (i = 0; i <= state->numPlayers; i++)
+    for (i = 0; i < state->numPlayers; i++) //change <= to < to fix seg fault
 	{
 	  if ( i != currentPlayer )
 	    {

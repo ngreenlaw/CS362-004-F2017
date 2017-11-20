@@ -1,0 +1,33 @@
+The bugs in my teammates code after testing the unit, cards, and random tests are:
+
+There were no bugs reported in the Unit test section.
+
+Smithy Card:
+	Cards were not drawn from the correct pile and 3 cards were not drawn.
+	The source of the problem is the drawCard function actually.
+	This is found by line 562 of dominion.c
+Adventurer Card:
+	There was no issue reported
+Village Card:
+	There was no issue reported
+Council_Room Card:
+	There were not 4 cards drawn as expected
+	There was a seg fault given so using gdb I was able to pinpoint the error.
+	I changed the line for(i=0;i<=state->numPlayers;i++) to for(i=0;i<state->numPlayers;i++).
+	This change had to occur for the test to finish running as it was trying to access a player that didnt exist.
+	This error was in line 681 of dominion.c
+Random Smithy Card:
+	Cards were not drawn from the correct pile and 3 cards were not drawn.
+	Occasionally the test for the other player hand unchanged failed but I could not find where that was happening.
+	The source of the problem is the drawCard function actually.
+	This is found by line 562 of dominion.c
+Random Village Card:
+	Occasionally the drawing cards from the correct pile test failed.
+	I could not find the exact source but it is likely the same error in the draw card function as in other tests.
+Random Adventurer Card:
+	Occasionally the drawing cards from the correct pile test failed and taking 2 cards failed occasionally.
+	I could not find the exact source but it is likely the same error in the draw card function as in other tests for the correct pile.
+	For the taking two cards it seemed that the handcount was being calculated incorrectly in the adventurer code.
+	This was in line 658 of dominion.c
+
+All bugs were found by looking through the output file of the tests except the Council Room which was found at compile time.

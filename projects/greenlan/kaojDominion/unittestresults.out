@@ -1,319 +1,128 @@
-Result of units tests on functions and cards in dominion.c
-unittest1.c:
-Initializing game.
-TEST 1 of discardCard() --- handpos: 0, trashFlag: 0
-
-handcount: 4, expected: 4     ----- PASS ----- 
-card 0 --- count: 0, expected 0     ----- PASS ----- 
-card 1 --- count: 1, expected 1     ----- PASS ----- 
-card 2 --- count: 0, expected 0     ----- PASS ----- 
-card 3 --- count: 0, expected 0     ----- PASS ----- 
-card 4 --- count: 3, expected 3     ----- PASS ----- 
-card 5 --- count: 0, expected 0     ----- PASS ----- 
-card 6 --- count: 0, expected 0     ----- PASS ----- 
-card 7 --- count: 0, expected 0     ----- PASS ----- 
-card 8 --- count: 0, expected 0     ----- PASS ----- 
-card 9 --- count: 0, expected 0     ----- PASS ----- 
-card 10 --- count: 0, expected 0     ----- PASS ----- 
-card 11 --- count: 0, expected 0     ----- PASS ----- 
-card 12 --- count: 0, expected 0     ----- PASS ----- 
-card 13 --- count: 0, expected 0     ----- PASS ----- 
-card 14 --- count: 0, expected 0     ----- PASS ----- 
-card 15 --- count: 0, expected 0     ----- PASS ----- 
-card 16 --- count: 0, expected 0     ----- PASS ----- 
-card 17 --- count: 0, expected 0     ----- PASS ----- 
-card 18 --- count: 0, expected 0     ----- PASS ----- 
-card 19 --- count: 0, expected 0     ----- PASS ----- 
-card 20 --- count: 0, expected 0     ----- PASS ----- 
-card 21 --- count: 0, expected 0     ----- PASS ----- 
-card 22 --- count: 0, expected 0     ----- PASS ----- 
-card 23 --- count: 0, expected 0     ----- PASS ----- 
-card 24 --- count: 0, expected 0     ----- PASS ----- 
-card 25 --- count: 0, expected 0     ----- PASS ----- 
-discard count: 0, expected: 1     ----- FAIL ----- 
-top of discard pile: 0, expected: 4     ----- FAIL ----- 
-
-TEST 2 of discardCard() --- handpos: handCount-1, trashFlag: 0
-
-handcount: 4, expected: 4     ----- PASS ----- 
-card 0 --- count: 0, expected 0     ----- PASS ----- 
-card 1 --- count: 1, expected 1     ----- PASS ----- 
-card 2 --- count: 0, expected 0     ----- PASS ----- 
-card 3 --- count: 0, expected 0     ----- PASS ----- 
-card 4 --- count: 3, expected 3     ----- PASS ----- 
-card 5 --- count: 0, expected 0     ----- PASS ----- 
-card 6 --- count: 0, expected 0     ----- PASS ----- 
-card 7 --- count: 0, expected 0     ----- PASS ----- 
-card 8 --- count: 0, expected 0     ----- PASS ----- 
-card 9 --- count: 0, expected 0     ----- PASS ----- 
-card 10 --- count: 0, expected 0     ----- PASS ----- 
-card 11 --- count: 0, expected 0     ----- PASS ----- 
-card 12 --- count: 0, expected 0     ----- PASS ----- 
-card 13 --- count: 0, expected 0     ----- PASS ----- 
-card 14 --- count: 0, expected 0     ----- PASS ----- 
-card 15 --- count: 0, expected 0     ----- PASS ----- 
-card 16 --- count: 0, expected 0     ----- PASS ----- 
-card 17 --- count: 0, expected 0     ----- PASS ----- 
-card 18 --- count: 0, expected 0     ----- PASS ----- 
-card 19 --- count: 0, expected 0     ----- PASS ----- 
-card 20 --- count: 0, expected 0     ----- PASS ----- 
-card 21 --- count: 0, expected 0     ----- PASS ----- 
-card 22 --- count: 0, expected 0     ----- PASS ----- 
-card 23 --- count: 0, expected 0     ----- PASS ----- 
-card 24 --- count: 0, expected 0     ----- PASS ----- 
-card 25 --- count: 0, expected 0     ----- PASS ----- 
-discard count: 0, expected: 1     ----- FAIL ----- 
-top of discard pile: 0, expected: 4     ----- FAIL ----- 
-
-TEST 3 of discardCard() --- handpos: 3, trashFlag: 0
-
-handcount: 4, expected: 4     ----- PASS ----- 
-card 0 --- count: 0, expected 0     ----- PASS ----- 
-card 1 --- count: 1, expected 1     ----- PASS ----- 
-card 2 --- count: 0, expected 0     ----- PASS ----- 
-card 3 --- count: 0, expected 0     ----- PASS ----- 
-card 4 --- count: 3, expected 3     ----- PASS ----- 
-card 5 --- count: 0, expected 0     ----- PASS ----- 
-card 6 --- count: 0, expected 0     ----- PASS ----- 
-card 7 --- count: 0, expected 0     ----- PASS ----- 
-card 8 --- count: 0, expected 0     ----- PASS ----- 
-card 9 --- count: 0, expected 0     ----- PASS ----- 
-card 10 --- count: 0, expected 0     ----- PASS ----- 
-card 11 --- count: 0, expected 0     ----- PASS ----- 
-card 12 --- count: 0, expected 0     ----- PASS ----- 
-card 13 --- count: 0, expected 0     ----- PASS ----- 
-card 14 --- count: 0, expected 0     ----- PASS ----- 
-card 15 --- count: 0, expected 0     ----- PASS ----- 
-card 16 --- count: 0, expected 0     ----- PASS ----- 
-card 17 --- count: 0, expected 0     ----- PASS ----- 
-card 18 --- count: 0, expected 0     ----- PASS ----- 
-card 19 --- count: 0, expected 0     ----- PASS ----- 
-card 20 --- count: 0, expected 0     ----- PASS ----- 
-card 21 --- count: 0, expected 0     ----- PASS ----- 
-card 22 --- count: 0, expected 0     ----- PASS ----- 
-card 23 --- count: 0, expected 0     ----- PASS ----- 
-card 24 --- count: 0, expected 0     ----- PASS ----- 
-card 25 --- count: 0, expected 0     ----- PASS ----- 
-discard count: 0, expected: 1     ----- FAIL ----- 
-top of discard pile: 0, expected: 4     ----- FAIL ----- 
-
-TEST 4 of discardCard() --- handpos: 0, trashFlag: 1
-
-handcount: 4, expected: 4     ----- PASS ----- 
-card 0 --- count: 0, expected 0     ----- PASS ----- 
-card 1 --- count: 1, expected 1     ----- PASS ----- 
-card 2 --- count: 0, expected 0     ----- PASS ----- 
-card 3 --- count: 0, expected 0     ----- PASS ----- 
-card 4 --- count: 3, expected 3     ----- PASS ----- 
-card 5 --- count: 0, expected 0     ----- PASS ----- 
-card 6 --- count: 0, expected 0     ----- PASS ----- 
-card 7 --- count: 0, expected 0     ----- PASS ----- 
-card 8 --- count: 0, expected 0     ----- PASS ----- 
-card 9 --- count: 0, expected 0     ----- PASS ----- 
-card 10 --- count: 0, expected 0     ----- PASS ----- 
-card 11 --- count: 0, expected 0     ----- PASS ----- 
-card 12 --- count: 0, expected 0     ----- PASS ----- 
-card 13 --- count: 0, expected 0     ----- PASS ----- 
-card 14 --- count: 0, expected 0     ----- PASS ----- 
-card 15 --- count: 0, expected 0     ----- PASS ----- 
-card 16 --- count: 0, expected 0     ----- PASS ----- 
-card 17 --- count: 0, expected 0     ----- PASS ----- 
-card 18 --- count: 0, expected 0     ----- PASS ----- 
-card 19 --- count: 0, expected 0     ----- PASS ----- 
-card 20 --- count: 0, expected 0     ----- PASS ----- 
-card 21 --- count: 0, expected 0     ----- PASS ----- 
-card 22 --- count: 0, expected 0     ----- PASS ----- 
-card 23 --- count: 0, expected 0     ----- PASS ----- 
-card 24 --- count: 0, expected 0     ----- PASS ----- 
-card 25 --- count: 0, expected 0     ----- PASS ----- 
-discard count: 0, expected: 0     ----- PASS ----- 
-top of discard pile: 0, expected: 0     ----- PASS ----- 
-
+TESTING isGameOver
+Testing: Game is Not Over
+Province count unchanged?
+Test Successful
+Province count > 0?
+Test Successful
+No more than 2 piles > 0?
+Test Successful
+Returned 0 as result?
+Test Successful
+Testing: Game is Over
+Province count unchanged?
+Test Successful
+Province count == 0?
+Test Successful
+At least 3 piles > 0?
+Test Successful
+Returned 1 as result?
+Test Successful
+End Testing for isGameOver
+TESTING updateCoins
+Test no bonus coins and one copper
+Test that coins is 1
+Test Successful
+Test no bonus coins and one silver
+Test that coins is 2
+Test Successful
+Test no bonus coins and one gold
+Test that coins is 3
+Test Successful
+Test 2 bonus coins and one silver
+Test that coins is 4
+Test Successful
+End Testing for updateCoins
+TESTING whoseTurn
+Test player 0 turn
+Test Successful
+Test player 1 turn
+Test Successful
+End Testing for whoseTurn
+TESTING fullDeckCount
+Given 6 cards in between hand, deck and discard.
+Check to see that the result is 5 village cards
+Test Successful
+End Testing for fullDeckCount
+TESTING Smithy
+Smithy Card played
+Drew cards from correct pile?
+Test Failed
+Drew 3 cards?
+Test Failed
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Smithy
+TESTING Adventurer
+Adventurer card played
+Took 2 cards?
+Test Successful
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Adventurer
+TESTING Village
+Village card played
+Drew cards from correct pile?
+Test Successful
+Drew 1 card?
+Test Successful
+Actions correct?
+Test Successful
+Supply unchanged?
+Test Successful
+Other player hand unchanged?
+Test Successful
+End Testing for Village
+TESTING Council Room
+Council Room card played
+Drew cards from correct pile?
+Test Successful
+Drew 4 cards?
+Test Failed
+Buys correct?
+Test Successful
+Supply unchanged?
+Test Successful
+Other player drew a card?
+Test Successful
+End Testing for Council Room
 File 'dominion.c'
-Lines executed:18.17% of 556
-Branches executed:17.35% of 415
-Taken at least once:13.98% of 415
-Calls executed:7.61% of 92
+Lines executed:28.60% of 556
 Creating 'dominion.c.gcov'
 
-unittest2.c:
-Initializing game.
-TEST 1 of fullDeckCount() --- numPlayers: 2, card: copper, status: new game
-Copper count: 7, expected: 7     ----- PASS ----- 
+File 'unittest1.c'
+Lines executed:95.92% of 49
+Creating 'unittest1.c.gcov'
 
-TEST 2 of fullDeckCount() --- numPlayers: 2, card: estate, status: new game
-Estate count: 3, expected: 3     ----- PASS ----- 
+File 'unittest2.c'
+Lines executed:98.25% of 57
+Creating 'unittest2.c.gcov'
 
-TEST 3 of fullDeckCount() --- numPlayers: 2, card: gold, status: new game
-Gold count: 0, expected: 0     ----- PASS ----- 
+File 'unittest3.c'
+Lines executed:96.15% of 26
+Creating 'unittest3.c.gcov'
 
-TEST 4 of fullDeckCount() --- numPlayers: 2, card: gold, status: added gold to player's hand
-Gold count: 1, expected: 1     ----- PASS ----- 
+File 'unittest4.c'
+Lines executed:96.77% of 31
+Creating 'unittest4.c.gcov'
 
-TEST 5 of fullDeckCount() --- numPlayers: 2, card: estate, status: added estate to player's deck
-Estate count: 4, expected: 4     ----- PASS ----- 
+File 'cardtest1.c'
+Lines executed:97.44% of 39
+Creating 'cardtest1.c.gcov'
 
-TEST 6 of fullDeckCount() --- numPlayers: 2, card: copper, status: added copper to player's discard
-Copper count: 8, expected: 8     ----- PASS ----- 
+File 'cardtest2.c'
+Lines executed:95.74% of 47
+Creating 'cardtest2.c.gcov'
 
-File 'dominion.c'
-Lines executed:19.78% of 556
-Branches executed:20.24% of 415
-Taken at least once:16.63% of 415
-Calls executed:7.61% of 92
-Creating 'dominion.c.gcov'
+File 'cardtest3.c'
+Lines executed:95.12% of 41
+Creating 'cardtest3.c.gcov'
 
-unittest3.c:
-Initializing game.
-TEST 1 of gainCard() --- supplyPos: 0, toFlag: 0
-Discard count: 1, expected: 1     ----- PASS ----- 
-Top of Discard: 0, expected: 0     ----- PASS ----- 
-Supply count of card: 9, expected: 9     ----- PASS ----- 
+File 'cardtest4.c'
+Lines executed:97.56% of 41
+Creating 'cardtest4.c.gcov'
 
-TEST 2 of gainCard() --- supplyPos: 1, toFlag: 1
-Deck count: 6, expected: 6     ----- PASS ----- 
-Top of Deck: 1, expected: 1     ----- PASS ----- 
-Supply count of card: 7, expected: 7     ----- PASS ----- 
-
-TEST 3 of gainCard() --- supplyPos: 2, toFlag: 2
-Hand count: 6, expected: 6     ----- PASS ----- 
-Top of Hand: 2, expected: 2     ----- PASS ----- 
-Supply count of card: 7, expected: 7     ----- PASS ----- 
-
-TEST 4 of gainCard() --- supplyPos: 5, toFlag: 0, supply quantity: 0
-Discard count: 1, expected: 1     ----- PASS ----- 
-Top of Discard: 0, expected: 0     ----- PASS ----- 
-Supply count of card: 0, expected: 0     ----- PASS ----- 
-
-File 'dominion.c'
-Lines executed:22.48% of 556
-Branches executed:21.69% of 415
-Taken at least once:18.07% of 415
-Calls executed:8.70% of 92
-Creating 'dominion.c.gcov'
-
-unittest4.c:
-Initializing game.
-TEST 1 of isGameOver() --- status: new game
-isGameOver: 0, expected: 0     ----- PASS ----- 
-
-TEST 2 of isGameOver() --- status: province pile empty
-isGameOver: 1, expected: 1     ----- PASS ----- 
-
-TEST 3 of isGameOver() --- status: silver and gold piles empty
-isGameOver: 0, expected: 0     ----- PASS ----- 
-
-TEST 4 of isGameOver() --- status: silver, gold, and duchy piles empty
-isGameOver: 1, expected: 1     ----- PASS ----- 
-
-File 'dominion.c'
-Lines executed:24.28% of 556
-Branches executed:23.61% of 415
-Taken at least once:20.00% of 415
-Calls executed:8.70% of 92
-Creating 'dominion.c.gcov'
-
-cardtest1.c:
-Initializing game.
-TEST of adventurer card --- Top of deck (in order) before playing card: council room, copper, estate, adventurer, smithy, silver, duchy
-Result of playCard with adventurer: 0, expected: 0     ----- PASS ----- 
-Copper count: 5, expected: 5     ----- PASS ----- 
-Silver count: 1, expected: 1     ----- PASS ----- 
-Handcount: 8, expected: 7     ----- FAIL ----- 
-Top of deck: 2, expected: 2     ----- PASS ----- 
-Deck count: 6, expected: 6     ----- PASS ----- 
-Top four cards of discard pile: 8 1 7 13 , expected: 8 1 7 13     ----- PASS ----- 
-Discard count: 4, expected: 4     ----- PASS ----- 
-
-Checking for changes in gameState --- Error may be from dependent functions such as playCard, updateCoins, drawCard, etc
-Number of players: 2, expected: 2     ----- PASS ----- 
-Whose turn: 0, expected: 0     ----- PASS ----- 
-Phase: 0, expected: 0     ----- PASS ----- 
-Number of buys: 1, expected: 1     ----- PASS ----- 
-Supply count remains the same     ----- PASS ----- 
-File 'dominion.c'
-Lines executed:31.47% of 556
-Branches executed:33.98% of 415
-Taken at least once:24.10% of 415
-Calls executed:16.30% of 92
-Creating 'dominion.c.gcov'
-
-cardtest2.c:
-Initializing game.
-TEST 1 of council room card --- Two players, new game
-Current player hand count: 9, expected: 9     ----- PASS ----- 
-Current hand: 4 4 1 4 4 1 4 4 4 , expected hand: 4 4 1 4 4 4 4 4 1      ----- PASS ----- 
-Number of buys: 2, expected: 2     ----- PASS ----- 
-Player 1 hand count: 1, expected: 1     ----- PASS ----- 
-
-Checking for changes in gameState --- Error may be from dependent functions such as playCard, updateCoins, drawCard, etc
-Number of players: 2, expected: 2     ----- PASS ----- 
-Whose turn: 0, expected: 0     ----- PASS ----- 
-Phase: 0, expected: 0     ----- PASS ----- 
-Supply count remains the same     ----- PASS ----- 
-
-
-Initializing new game with four players.
-TEST 2 of council room card --- Four players, new game
-Current player hand count: 9, expected: 9     ----- PASS ----- 
-Current hand: 4 4 1 4 4 1 4 4 4 , expected hand: 4 4 1 4 4 4 4 4 1      ----- PASS ----- 
-Number of buys: 2, expected: 2     ----- PASS ----- 
-Player 1 hand count: 1, expected: 1     ----- PASS ----- 
-Player 2 hand count: 1, expected: 1     ----- PASS ----- 
-Player 3 hand count: 1, expected: 1     ----- PASS ----- 
-
-Checking for changes in gameState --- Error may be from dependent functions such as playCard, updateCoins, drawCard, etc
-Number of players: 4, expected: 4     ----- PASS ----- 
-Whose turn: 0, expected: 0     ----- PASS ----- 
-Phase: 0, expected: 0     ----- PASS ----- 
-Supply count remains the same     ----- PASS ----- 
-File 'dominion.c'
-Lines executed:36.15% of 556
-Branches executed:36.87% of 415
-Taken at least once:27.71% of 415
-Calls executed:21.74% of 92
-Creating 'dominion.c.gcov'
-
-cardtest3.c:
-Initializing game.
-Hand count: 9, expected: 8     ----- FAIL ----- 
-Deck count: 2, expected: 2     ----- PASS ----- 
-Current hand: 4 4 1 4 4 13 4 4 4 , expected hand: 4 4 1 4 4 4 4 4      ----- FAIL ----- 
-Supply count stays the same     ----- PASS ----- 
-Outpost played: 0, expected: 0     ----- PASS ----- 
-Outpost turn: 0, expected: 0     ----- PASS ----- 
-Player 1 hand count: 0, expected: 0     ----- PASS ----- 
-Player 1 deck count: 10, expected: 10     ----- PASS ----- 
-Player 1 discard count: 0, expected: 0     ----- PASS ----- 
-File 'dominion.c'
-Lines executed:37.05% of 556
-Branches executed:37.35% of 415
-Taken at least once:28.43% of 415
-Calls executed:23.91% of 92
-Creating 'dominion.c.gcov'
-
-cardtest4.c:
-Initializing game.
-TEST of village card --- numPlayers: 2, status: new game
-Return value of playCard with village: 0, expected: 0     ----- PASS ----- 
-Hand count: 6, expected: 6     ----- PASS ----- 
-Added card: 4, expected: 4     ----- PASS ----- 
-Deck count: 4, expected: 4     ----- PASS ----- 
-Number of actions: 2, expected: 2     ----- PASS ----- 
-Top of played cards: 14, expected: 14     ----- PASS ----- 
-Played card count: 1, expected: 1     ----- PASS ----- 
-Number of players: 2, expected: 2     ----- PASS ----- 
-Whose turn: 0, expected: 0     ----- PASS ----- 
-Phase: 0, expected: 0     ----- PASS ----- 
-Number of buys: 1, expected: 1     ----- PASS ----- 
-Supply count remains the same     ----- PASS ----- 
-Player 1 hand count: 0, expected: 0     ----- PASS ----- 
-Player 1 deck count: 10, expected: 10     ----- PASS ----- 
-Player 1 discard count: 0, expected: 0     ----- PASS ----- 
-File 'dominion.c'
-Lines executed:37.77% of 556
-Branches executed:37.35% of 415
-Taken at least once:28.67% of 415
-Calls executed:26.09% of 92
-Creating 'dominion.c.gcov'
-
+Lines executed:54.00% of 887

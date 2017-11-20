@@ -1,0 +1,104 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Programs:17
+        -:    1:/* -----------------------------------------------------------------------
+        -:    2: * Demonstration of how to write unit tests for dominion-base
+        -:    3: * Include the following lines in your makefile:
+        -:    4: *
+        -:    5: * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+        -:    6: *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+        -:    7: * -----------------------------------------------------------------------
+        -:    8:  This file is based off of the update coins file given in the course materials
+        -:    9: */
+        -:   10:
+        -:   11:  /*Test the function ______________*/
+        -:   12: 
+        -:   13:#include "dominion.h"
+        -:   14:#include "dominion_helpers.h"
+        -:   15:#include <string.h>
+        -:   16:#include <stdio.h>
+        -:   17:#include <assert.h>
+        -:   18:#include "rngs.h"
+        -:   19:
+        -:   20:// set NOISY_TEST to 0 to remove printfs from output
+        -:   21:#define NOISY_TEST 1
+        -:   22:
+        -:   23:// set TEST_FUNCTION to whatever thing is being tested
+        -:   24:#define TEST_FUNCTION "Adventurer"
+        -:   25:
+        -:   26:// Self created assert function for testing functions
+        3:   27:void assertTrue(int b)
+        -:   28:{
+        3:   29:	if(b == 0)
+        -:   30:	{
+    #####:   31:		printf("Test Failed\n");
+        -:   32:	}
+        -:   33:	else
+        -:   34:	{
+        3:   35:		printf("Test Successful\n");
+        -:   36:	}
+        3:   37:}
+        -:   38:
+        1:   39:int main() {
+        -:   40:	//Initialize game parameters
+        -:   41:	int b;
+        1:   42:    int i=0;
+        1:   43:    int seed = 1000;
+        1:   44:    int numPlayer = 2;
+        1:   45:    int maxBonus = 10;
+        -:   46:    int p, r, handCount;
+        1:   47:	int handpos = 0;
+        1:   48:	int choice1 = 0;
+        1:   49:	int choice2 = 0;
+        1:   50:	int choice3 = 0;
+        1:   51:	int bonus = 0;
+        1:   52:	int player = 0;
+        1:   53:    int k[10] = {adventurer, council_room, feast, gardens, mine
+        -:   54:               , remodel, smithy, village, baron, great_hall};
+        -:   55:    struct gameState G, testG;
+        1:   56:    int maxHandCount = 5;
+        -:   57:	
+        -:   58:	
+        -:   59:	// Begin the testing
+        1:   60:    printf ("TESTING %s\n", TEST_FUNCTION);
+        1:   61:    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+        1:   62:    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+        1:   63:	G.whoseTurn = 0;
+        1:   64:	G.deckCount[0] = 5;
+        1:   65:	G.handCount[0] = 2;
+        1:   66:	G.discardCount[0] = 0;
+        1:   67:	G.deck[player][0] = village;
+        1:   68:	G.hand[player][0] = village;
+        1:   69:	G.hand[player][1] = village;
+        1:   70:	G.deck[player][1] = copper;
+        1:   71:	G.deck[player][2] = gold;
+        1:   72:	G.deck[player][3] = gold;
+        1:   73:	G.deck[player][4] = gold;
+        -:   74:
+        -:   75:	// TEST 1
+        1:   76:	printf("Adventurer card played\n"); //Test being run
+        1:   77:	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+        1:   78:	cardEffect(adventurer,choice1,choice2,choice3,&testG,handpos,&bonus);
+        -:   79:	
+        1:   80:	printf("Took 2 cards?\n");
+        1:   81:	assertTrue(testG.handCount[player] == (G.handCount[player]+2));
+        -:   82:	
+        -:   83:	
+        1:   84:	printf("Supply unchanged?\n");
+        1:   85:	int j = 0;
+       26:   86:	for (i = 0; i < 25; i++)
+        -:   87:	  {
+       25:   88:		if (testG.supplyCount[i] != G.supplyCount[i])
+        -:   89:		  {
+    #####:   90:			j++;
+        -:   91:		  }
+        -:   92:	  }
+        1:   93:	assertTrue( j == 0);
+        -:   94:
+        1:   95:	printf("Other player hand unchanged?\n");
+        1:   96:	assertTrue(testG.handCount[1] == G.handCount[1]);
+        -:   97:
+        -:   98:	//End the testing
+        1:   99:    printf("End Testing for %s\n",TEST_FUNCTION);
+        -:  100:
+        1:  101:    return 0;
+        -:  102:}

@@ -1,174 +1,118 @@
-// Tests the discardCard function
-// Usage:
-// 		int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag)
-//
-// 		Assertions:
-//			-if the trashFlag is not set
-//				-player's handcount should be decremented
-//				-card which was discarded should no longer be in player's hand
-//				-current player's discardCount should be decremented by one
-//				-top of discard pile of current player should be the same card which was discarded
-//			-if the trashFlag is set
-//				-player's handcount should be decremented
-//				-card which was trashed should no longer be in player's hand
-//				-player's discardCount should remain the same
-//				-top of discard pile should be the same as before
-//			-other conditions should not change
-//
-// 			-cases: 
-// 				-player discards last card in their hand
-// 				-player discards last card in hand array
-// 				-player discards a card (not meeting conditions above)
-//
+/* -----------------------------------------------------------------------
+ * Demonstration of how to write unit tests for dominion-base
+ * Include the following lines in your makefile:
+ *
+ * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+ *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+ * -----------------------------------------------------------------------
+  This file is based off of the update coins file given in the course materials
+ */
 
+ /*Test the function isGameOver*/
+ 
 #include "dominion.h"
 #include "dominion_helpers.h"
-#include "rngs.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <assert.h>
+#include "rngs.h"
 
-#define MAXCARD treasure_map
-#define PASS_STR "     ----- PASS ----- "
-#define FAIL_STR "     ----- FAIL ----- "
+// set NOISY_TEST to 0 to remove printfs from output
+#define NOISY_TEST 1
 
-typedef struct gameState gState;
+// set TEST_FUNCTION to whatever thing is being tested
+#define TEST_FUNCTION "isGameOver"
 
-int getCardDistribution(int arr[], int currPlayer, gState *state) {
-	int i, card;
-	for (i = 0; i < state->handCount[currPlayer]; i++) {
-		card = state->hand[currPlayer][i];
-		arr[card]++;
+// Self created assert function for testing functions
+void assertTrue(int b)
+{
+	if(b == 0)
+	{
+		printf("Test Failed\n");
 	}
-	return 0;
+	else
+	{
+		printf("Test Successful\n");
+	}
 }
 
-
-void testDiscard(gState *initState, gState *postState, int handPos, int initCardDist[], int postCardDist[], int trashFlag) {
-	int currPlayer = initState->whoseTurn;
-	int card = initState->hand[currPlayer][handPos];
+int main() {
+	//Initialize game parameters
+	int b;
+    int seed = 1000;
+    int numPlayer = 2;
+    int maxBonus = 10;
+    int p, r, handCount;
+    int bonus;
+    int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+    struct gameState G, testG;
+    int maxHandCount = 5;
+	
+	
+	// Begin the testing
+    printf ("TESTING %s\n", TEST_FUNCTION);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+	
+	// TEST 1
+	printf("Testing: Game is Not Over\n"); //Test being run
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	/* Do the test material here where b is boolean to see if test succeeded*/
+	int result = isGameOver(&testG); // run the function
+	
+	printf("Province count unchanged?\n");
+	assertTrue(testG.supplyCount[province] == G.supplyCount[province]); // test the province count
+	
+	printf("Province count > 0?\n");
+	assertTrue(testG.supplyCount[province] > 0); // Test greater than 0
+	
+	printf("No more than 2 piles > 0?\n");
+	int j = 0;
 	int i;
+	for (i = 0; i < 25; i++)
+	  {
+		if (testG.supplyCount[i] == 0)
+		  {
+			j++;
+		  }
+	  }
+	assertTrue( j < 3);
+	
+	printf("Returned 0 as result?\n");
+    assertTrue(result == 0);
 
-	// Handcount should be decremented by one
-	printf("handcount: %d, expected: %d", postState->handCount[currPlayer], initState->handCount[currPlayer] - 1);
-	if (postState->handCount[currPlayer] == initState->handCount[currPlayer] - 1) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-	// Count for other cards in player's hand should remain the same	
-	for (i = 0; i < MAXCARD; i++) {
-		if (i == card) {
-			printf("card %d --- count: %d, expected %d", i, postCardDist[i], initCardDist[i]-1);
-			if (postCardDist[i] == initCardDist[i] - 1) {
-				printf("%s\n", PASS_STR);
-			} else {
-				printf("%s\n", FAIL_STR);
-			}
-		} else {
-			printf("card %d --- count: %d, expected %d", i, postCardDist[i], initCardDist[i]);
-			if (postCardDist[i] == initCardDist[i]) {
-				printf("%s\n", PASS_STR);
-			} else {
-				printf("%s\n", FAIL_STR);
-			}
-		}
-	}
+	// TEST 2
+	printf("Testing: Game is Over\n"); //Test being run
+	G.supplyCount[province] = 0;
+	G.supplyCount[0] = 0;
+	G.supplyCount[1] = 0;
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	/* Do the test material here where b is boolean to see if test succeeded*/
+	result = isGameOver(&testG); // run the function
+	
+	printf("Province count unchanged?\n");
+	assertTrue(testG.supplyCount[province] == G.supplyCount[province]); // test the province count
+	
+	printf("Province count == 0?\n");
+	assertTrue(testG.supplyCount[province] == 0); // Test greater than 0
+	
+	printf("At least 3 piles > 0?\n");
+	j = 0;
+	for (i = 0; i < 25; i++)
+	  {
+		if (testG.supplyCount[i] == 0)
+		  {
+			j++;
+		  }
+	  }
+	assertTrue( j >= 3);
+	
+	printf("Returned 1 as result?\n");
+    assertTrue(result == 1);
+	
+	//End the testing
+    printf("End Testing for %s\n",TEST_FUNCTION);
 
-	if (trashFlag) {
-		// Discard count should remain the same
-		printf("discard count: %d, expected: %d", postState->discardCount[currPlayer], initState->discardCount[currPlayer]);
-		if (postState->discardCount[currPlayer] == initState->discardCount[currPlayer]) {
-			printf("%s\n", PASS_STR);
-		} else {
-			printf("%s\n", FAIL_STR);
-		}
-		// Top of discard pile should be the same as before
-		printf("top of discard pile: %d, expected: %d",
-			postState->discard[currPlayer][postState->discardCount[currPlayer]-1],
-			initState->discard[currPlayer][initState->discardCount[currPlayer]-1]);
-		if (postState->discard[currPlayer][postState->discardCount[currPlayer]-1] == 
-			initState->discard[currPlayer][initState->discardCount[currPlayer]-1]) {
-			printf("%s\n", PASS_STR);
-		} else {
-			printf("%s\n", FAIL_STR);
-		}
-	} else {
-		// Discard count should increase by one
-		printf("discard count: %d, expected: %d", postState->discardCount[currPlayer], initState->discardCount[currPlayer] + 1);
-		if (postState->discardCount[currPlayer] == initState->discardCount[currPlayer] + 1) {
-			printf("%s\n", PASS_STR);
-		} else {
-			printf("%s\n", FAIL_STR);
-		}
-		// Top of discard pile should be the card which was discarded
-		printf("top of discard pile: %d, expected: %d",
-			postState->discard[currPlayer][postState->discardCount[currPlayer]-1], card);
-		if (postState->discard[currPlayer][postState->discardCount[currPlayer]-1] == card) {
-			printf("%s\n", PASS_STR);
-		} else {
-			printf("%s\n", FAIL_STR);
-		}
-	}
-}
-
-
-int main(int argc, char *argv[]) {
-	int numPlayers = 2;
-	int seedNum = 100;
-	int handPos = 0;
-	int trashFlag = 0;
-	int initCardDist[MAXCARD] = { 0 };	// counts number of each type of card in player's hand
-	int postCardDist[MAXCARD] = { 0 };
-
-	gState G, postDiscardG;
-	int k[10] = {adventurer, council_room, gardens, mine, smithy, village, baron,
-	great_hall, minion, salvager};
-
-	printf("Initializing game.\n");
-	initializeGame(numPlayers, k, seedNum, &G);
-	int currPlayer = G.whoseTurn;
-	memcpy(&postDiscardG, &G, sizeof(gState));	// Copy game state
-
-	printf("TEST 1 of discardCard() --- handpos: 0, trashFlag: 0\n\n");
-	discardCard(handPos, currPlayer, &postDiscardG, trashFlag);
-	getCardDistribution(initCardDist, currPlayer, &G);
-	getCardDistribution(postCardDist, currPlayer, &postDiscardG);
-	testDiscard(&G, &postDiscardG, handPos, initCardDist, postCardDist, 0);
-	printf("\n");
-
-	memset(initCardDist, 0, sizeof(int)*MAXCARD);
-	memset(postCardDist, 0, sizeof(int)*MAXCARD);
-	memcpy(&postDiscardG, &G, sizeof(gState));
-	handPos = G.hand[currPlayer][G.handCount[currPlayer]-1];
-	printf("TEST 2 of discardCard() --- handpos: handCount-1, trashFlag: 0\n\n");
-	discardCard(handPos, currPlayer, &postDiscardG, trashFlag);
-	getCardDistribution(initCardDist, currPlayer, &G);
-	getCardDistribution(postCardDist, currPlayer, &postDiscardG);
-	testDiscard(&G, &postDiscardG, handPos, initCardDist, postCardDist, 0);
-	printf("\n");
-
-	memset(initCardDist, 0, sizeof(int)*MAXCARD);
-	memset(postCardDist, 0, sizeof(int)*MAXCARD);
-	memcpy(&postDiscardG, &G, sizeof(gState));
-	handPos = 3;
-	printf("TEST 3 of discardCard() --- handpos: 3, trashFlag: 0\n\n");
-	discardCard(handPos, currPlayer, &postDiscardG, trashFlag);
-	getCardDistribution(initCardDist, currPlayer, &G);
-	getCardDistribution(postCardDist, currPlayer, &postDiscardG);
-	testDiscard(&G, &postDiscardG, handPos, initCardDist, postCardDist, 0);
-	printf("\n");
-
-	memset(initCardDist, 0, sizeof(int)*MAXCARD);
-	memset(postCardDist, 0, sizeof(int)*MAXCARD);
-	memcpy(&postDiscardG, &G, sizeof(gState));
-	printf("TEST 4 of discardCard() --- handpos: 0, trashFlag: 1\n\n");
-	discardCard(handPos, currPlayer, &postDiscardG, trashFlag);
-	getCardDistribution(initCardDist, currPlayer, &G);
-	getCardDistribution(postCardDist, currPlayer, &postDiscardG);
-	testDiscard(&G, &postDiscardG, handPos, initCardDist, postCardDist, 1);
-	printf("\n");
-
-
-	return 0;
+    return 0;
 }

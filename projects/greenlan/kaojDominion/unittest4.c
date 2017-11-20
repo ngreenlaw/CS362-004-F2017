@@ -1,80 +1,79 @@
-// Unit test for isGameOver() function in dominion.c
-//
-// 		Usage:
-//			int isGameOver(struct gameState *state);
-//
-//
+/* -----------------------------------------------------------------------
+ * Demonstration of how to write unit tests for dominion-base
+ * Include the following lines in your makefile:
+ *
+ * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+ *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+ * -----------------------------------------------------------------------
+  This file is based off of the update coins file given in the course materials
+ */
 
+  /*Test the function fullDeckCount*/
+ 
 #include "dominion.h"
 #include "dominion_helpers.h"
-#include "rngs.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <assert.h>
+#include "rngs.h"
 
-#define PASS_STR "     ----- PASS ----- "
-#define FAIL_STR "     ----- FAIL ----- "
+// set NOISY_TEST to 0 to remove printfs from output
+#define NOISY_TEST 1
 
-typedef struct gameState gState;
+// set TEST_FUNCTION to whatever thing is being tested
+#define TEST_FUNCTION "fullDeckCount"
 
-int main(int argc, char *argv[]) {
-	int numPlayers = 2;
-	int seedNum = 1000;
-	int gameOver;
-	gState G;
-	int k[10] = {adventurer, council_room, gardens, mine, smithy, village, baron,
-	great_hall, minion, salvager};
-
-	printf("Initializing game.\n");
-	initializeGame(numPlayers, k, seedNum, &G);
-
-	printf("TEST 1 of isGameOver() --- status: new game\n");
-	gameOver = isGameOver(&G);
-	printf("isGameOver: %d, expected: %d", gameOver, 0);
-	if (gameOver == 0) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
+// Self created assert function for testing functions
+void assertTrue(int b)
+{
+	if(b == 0)
+	{
+		printf("Test Failed\n");
 	}
-	printf("\n");
-
-	// Empty the Province pile
-	G.supplyCount[province] = 0;
-	printf("TEST 2 of isGameOver() --- status: province pile empty\n");
-	gameOver = isGameOver(&G);
-	printf("isGameOver: %d, expected: %d", gameOver, 1);
-	if (gameOver == 1) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
+	else
+	{
+		printf("Test Successful\n");
 	}
-	printf("\n");
+}
 
-	G.supplyCount[province] = 8;	// Restore province count
-	// Empty the silver and gold piles
-	G.supplyCount[silver] = 0;
-	G.supplyCount[gold] = 0;
-	printf("TEST 3 of isGameOver() --- status: silver and gold piles empty\n");
-	gameOver = isGameOver(&G);
-	printf("isGameOver: %d, expected: %d", gameOver, 0);
-	if (gameOver == 0) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-	printf("\n");
+int main() {
+	//Initialize game parameters
+	int b;
+    int seed = 1000;
+    int numPlayer = 2;
+    int maxBonus = 10;
+    int p, r, handCount;
+    int bonus;
+    int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+    struct gameState G, testG;
+    int maxHandCount = 5;
+    int player = 0;
+	// Begin the testing
+    printf ("TESTING %s\n", TEST_FUNCTION);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
+	G.deckCount[0] = 1;
+	G.handCount[0] = 2;
+	G.discardCount[0] = 3;
+	G.deck[player][0] = village;
+	G.hand[player][0] = village;
+	G.hand[player][1] = village;
+	G.discard[player][0] = village;
+	G.discard[player][1] = village;
+	G.discard[player][2] = copper;
+	
+	int result;
+	
+	// TEST 1
+	printf("Given 6 cards in between hand, deck and discard.\n"); //Test being run
+	memcpy(&testG, &G, sizeof(struct gameState)); //save game state to compare
+	result = fullDeckCount(0,village,&testG);
+	printf("Check to see that the result is 5 village cards\n");
+    assertTrue(result == 5); //Test result
 
-	// Empty the Duchy pile
-	G.supplyCount[duchy] = 0;
-	printf("TEST 4 of isGameOver() --- status: silver, gold, and duchy piles empty\n");
-	gameOver = isGameOver(&G);
-	printf("isGameOver: %d, expected: %d", gameOver, 1);
-	if (gameOver == 1) {
-		printf("%s\n", PASS_STR);
-	} else {
-		printf("%s\n", FAIL_STR);
-	}
-	printf("\n");
+	//End the testing
+    printf("End Testing for %s\n",TEST_FUNCTION);
 
-	return 0;
+    return 0;
 }
